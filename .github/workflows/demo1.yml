@@ -28,6 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - run: echo "hey my name is $CURRENT_DATE"
       # - run: git tag
       # - run: git fetch -p
       # - run: git checkout -b

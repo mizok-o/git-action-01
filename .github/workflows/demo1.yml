@@ -1,21 +1,17 @@
 name: Events Demo 1
 on:
   pull_request:
-    types: [opened, reopened]
-  workflow_dispatch:
+    types: [opened, closed]
+    branches:
+      - master
+      - dev
 jobs:
-  deploy:
+  create-tag:
     runs-on: ubuntu-latest
     steps:
-      - name: Output event data
-        run: echo "${{ toJSON(github.event) }}"
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm ci
-      - name: Test code
-        run: npm run test
-      - name: Build code
-        run: npm run build
-      - name: Deploy project
-        run: echo "Deploying..."
+      - uses: actions/checkout@v2
+      - run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - run: echo "hey my name is $CURRENT_DATE"
+      # - run: git tag
+      # - run: git fetch -p
+      # - run: git checkout -b

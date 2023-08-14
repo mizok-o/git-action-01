@@ -16,7 +16,7 @@ jobs:
       - run: git branch
       - run: echo "TAG_NAME=release_$(date +'%Y_%m_%d')" >> $GITHUB_ENV
       - run: echo "hey my name is $TAG_NAME"
-      - run: git tag $TAG_NAME master
+      # - run: git tag $TAG_NAME master
       - run: git tag $TAG_NAME remotes/origin/master
       - run: git tag $TAG_NAME origin/master
       - run: git fetch -p

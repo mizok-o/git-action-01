@@ -11,3 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: echo "TAG_NAME=release_$(date +'%Y_%m_%d')" >> $GITHUB_ENV
       - run: echo "hey my name is $TAG_NAME"
+      - run: git tag $TAG_NAME master
+      - run: git fetch -p
+      - run: git push origin $TAG_NAME
+      - run: git checkout -b $TAG_NAME $TAG_NAME

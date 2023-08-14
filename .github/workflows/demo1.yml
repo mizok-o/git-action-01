@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: git fetch --all
       - run: echo "TAG_NAME=release_$(date +'%Y_%m_%d')" >> $GITHUB_ENV
       - run: echo "hey my name is $TAG_NAME"
       - run: git tag $TAG_NAME master

@@ -19,4 +19,6 @@ jobs:
       - run: git tag $TAG_NAME remotes/origin/master
       - run: git fetch -p
       - run: git push origin $TAG_NAME
+        with:
+          token: ${{ secrets.GH_TOKEN }}
       - run: git checkout -b $TAG_NAME $TAG_NAME

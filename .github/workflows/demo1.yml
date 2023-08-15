@@ -1,17 +1,29 @@
 name: Events Demo 1
 on:
   pull_request:
-    types: closed
+    types: [opened, reopened, closed]
     branches:
       - master
 jobs:
   create-tag:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-      - run: echo "hey my name is $CURRENT_DATE"
-      # - run: git tag
-      # - run: git fetch -p
-      # - run: git checkout -b
+        with:
+          fetch-depth: 0
+      - run: git fetch --all
+      - run: git branch -a
+      - run: git branch
+      - run: echo "TAG_NAME=release_$(date +'%Y_%m_%d')" >> $GITHUB_ENV
+      - run: echo "hey my name is $TAG_NAME"
+      - run: git tag $TAG_NAME remotes/origin/master
+      - run: git fetch -p
+      - name: Push tag
+        run: |
+          git config --global user.name "Mizoko"
+          git config --global user.email "mizoko320@gmail.com"
+          git push origin $TAG_NAME
+        env:
+          GIT_TOKEN: ${{ secrets.GH_TOKEN }}
+          TAG_NAME: ${{ env.TAG_NAME }}
+      - run: git checkout -b $TAG_NAME $TAG_NAME

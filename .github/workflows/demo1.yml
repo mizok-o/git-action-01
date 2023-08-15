@@ -18,7 +18,12 @@ jobs:
       - run: echo "hey my name is $TAG_NAME"
       - run: git tag $TAG_NAME remotes/origin/master
       - run: git fetch -p
-      - run: git push origin $TAG_NAME
+      - name: Push tag
+        run: |
+          git config --global user.name "mizok-o"
+          git config --global user.email "mizoko320@gmail.com"
+          git push origin $TAG_NAME
+        env:
+          GIT_TOKEN: ${{ secrets.GH_TOKEN }}
+          TAG_NAME: ${{ env.TAG_NAME }}
       - run: git checkout -b $TAG_NAME $TAG_NAME
-      - env:
-        GIT_TOKEN: ${{ secrets.GH_TOKEN }}

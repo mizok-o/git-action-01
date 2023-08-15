@@ -22,6 +22,7 @@ jobs:
         run: |
           git config --global user.name "mizok-o"
           git config --global user.email "mizoko320@gmail.com"
+          git remote set-url origin https://x-access-token:${GIT_TOKEN}@github.com/mizok-o/git-action-01.git
           git push origin $TAG_NAME
         env:
           GIT_TOKEN: ${{ secrets.GH_TOKEN }}

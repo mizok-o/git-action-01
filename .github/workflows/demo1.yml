@@ -20,9 +20,8 @@ jobs:
       - run: git fetch -p
       - name: Push tag
         run: |
-          git config --global user.name "mizok-o"
-          git config --global user.email "mizoko320@gmail.com"
-          git remote set-url origin https://x-access-token:${GIT_TOKEN}@github.com/mizok-o/git-action-01.git
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.mizok-o.github.com"
           git push origin $TAG_NAME
         env:
           GIT_TOKEN: ${{ secrets.GH_TOKEN }}
